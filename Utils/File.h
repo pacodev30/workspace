@@ -11,53 +11,48 @@ namespace utils {
 		static void Write(
 			const std::string& pathFile,
 			const std::string& dataToWrite,
-			const bool fileIsReadOnly,
+			const bool fileIsReadOnly = false,
 			const bool append = true
 			)
 		{
 			if (!fileIsReadOnly)
 			{
-				try
-				{
-					std::fstream f;
-					if (append)
-						f.open(pathFile, std::ios::app);
-					else
-						f.open(pathFile, std::ios::out);
+				std::fstream outFile;
+				if (append == true)
+					outFile.open(pathFile, std::ios::app);
+				else
+					outFile.open(pathFile, std::ios::out | std::ios::trunc);
 
-					if (f.is_open())
-					{
-						f << dataToWrite;
-						std::cout << "=> file is writen on '" << pathFile << "' :)" << std::endl;
-						f.close();
-					}
-					else
-						throw std::runtime_error("=> File could not be opened :(");
-
-				} catch (std::exception& e)
+				if (outFile.is_open())
 				{
-					std::cout << "" << e.what() << std::endl;
+					outFile << dataToWrite;
+					std::cout << "=> file is writen on '" << pathFile << "' :)" << std::endl;
+					outFile.close();
 				}
 			}
-			else std::cout << "=> File is readonly :o" << std::endl;
+			else
+				std::cout << "=> File is readonly :o" << std::endl;
 		}
 
-		static void Read(const std::string &pathFile)
+		static std::string Read(const std::string& pathFile)
 		{
-			try
+			std::ifstream ifs;
+			ifs.open(pathFile, std::ios::in);
+			if (ifs.is_open())
 			{
-				std::fstream f;
-				std::string result;
-				f.open(pathFile, std::ios::in);
-				if (f.is_open())
-					std::cout <<"=> Read on " << pathFile << "\n" << f.rdbuf() << "---" << std::endl;
-				else
-					throw std::runtime_error("=> File could not be opened :(");
-			} catch (std::runtime_error& e)
-			{
-				std::cout << e.what() << std::endl;
+				std::string dataRead;
+				std::string line;
+				std::cout << "=> Read on '" << pathFile << std::endl;
+				while (std::getline(ifs, line))
+				{
+					dataRead += line + "\n";
+				}
+				return dataRead;
 			}
+		throw std::runtime_error("Could not open file " + pathFile);
 		}
+
+
 	};
 } // utils
 
