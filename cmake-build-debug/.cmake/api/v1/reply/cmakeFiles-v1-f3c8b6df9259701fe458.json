@@ -150,8 +150,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/pascal/DEV/projects/cpp/workspace/cmake-build-debug",
-		"source" : "/Users/pascal/DEV/projects/cpp/workspace"
+		"build" : "/Users/pascal/dev/projects/workspace/cmake-build-debug",
+		"source" : "/Users/pascal/dev/projects/workspace"
 	},
 	"version" : 
 	{

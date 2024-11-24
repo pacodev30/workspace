@@ -1,19 +1,36 @@
-#include "Utils/File.h"
-#include <string>
-#include "Utils/struct.h"
+#include "Headers/Worker.h"
+#include "utils/File.h"
+#include <iostream>
+#include <vector>
 
 int main()
 {
-	const utils::struct_file f1{
-		"/Users/pascal/dev/projects/cpp/workspace/Ressources/data.txt",
-		"Esteban \nStella \nMaria",
-		false
+	// INIT
+	const std::string PATHFILE("/Users/pascal/dev/projects/workspace/Ressources/data.txt");
 
-	};
+	workspace::Worker ppe("PERROT", "Pascal", "Developer");
+	workspace::Worker tro("ROUILLE", "Thomas", "Designer");
+	workspace::Worker ami("MINOTTI", "Alex", "Lead designer");
 
-	utils::File::Write(f1.pathFile, f1.dataToWrite);
-	const std::string f1data(utils::File::Read(f1.pathFile));
+	ppe.setService("Designer/developer");
 
-	std::cout << f1data << std::endl;
+	std::vector<workspace::Worker> workers =
+		{
+			ppe,
+			tro,
+			ami
+		};
+
+	// OUTPUT
+	utils::File::Clear(PATHFILE);
+
+	for (workspace::Worker& w: workers)
+	{
+		const std::string DATA = w.getFirstName() + " " + w.getLastName() + " \t| " + w.getService() + "\n";
+		utils::File::Write(PATHFILE, DATA, true);
+	}
+
+	std::cout << utils::File::Read(PATHFILE) << std::endl;
+
 	return 0;
 }

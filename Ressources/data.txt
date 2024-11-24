@@ -1,7 +1,3 @@
-Esteban 
-Stella 
-MariaEsteban 
-Stella 
-MariaEsteban 
-Stella 
-Maria
+PERROT Pascal 	| Designer/developer
+ROUILLE Thomas 	| Designer
+MINOTTI Alex 	| Lead designer
